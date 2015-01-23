@@ -1,4 +1,4 @@
-﻿// Based off inScope Studio's Health Bar Tutorial
+// Based off inScope Studio's Health Bar Tutorial
 // https://www.youtube.com/watch?v=NgftVg3idB4
 
 using UnityEngine;
@@ -23,7 +23,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public float maxHealth;
+    public int maxHealth;
 
     public Text healthText;
 
@@ -52,10 +52,16 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {   
         HandleMovement();
+
+        // Hide if invisible is enabled after start but we want it to be disabled 
+        // so the health bar will be able to grow
+        if(healthTransform.GetComponent<CanvasRenderer>().hideIfInvisible == true) {
+            healthTransform.GetComponent<CanvasRenderer>().hideIfInvisible = false;
+        }
     }
 
     private void HandleHealth() {
-        handleText.text = "Health: " + currentHealth;
+        healthText.text = "Health: " + currentHealth;
         float currentXValue = MapValues(currentHealth, 0, maxHealth, minXValue, maxXValue);
 
         // Transform health bar into correct osition
@@ -73,9 +79,9 @@ public class PlayerScript : MonoBehaviour
     }
 
     IEnumerator CoolDownDamage() {
-        onCD = true;
-        yield return new waitForSeconds(coolDown);
-        onCD = false;
+        onCoolDown = true;
+        yield return new WaitForSeconds(coolDown);
+        onCoolDown = false;
 
     }
 
@@ -91,15 +97,15 @@ public class PlayerScript : MonoBehaviour
     }
 
     void OnTriggerStay(Collider other) {
-        if (other.name = "Damage") {
-            if(!onCD && currentHealth > 0) {
+        if (other.name == "Damage") {
+            if(!onCoolDown && currentHealth > 0) {
                 StartCoroutine(CoolDownDamage());
                 CurrentHealth -= 1;
             }
         }
 
-        if (other.name = "Health") {
-            if(!onCD && currentHealth > maxHealth) {
+        if (other.name == "Health") {
+            if(!onCoolDown && currentHealth > maxHealth) {
                 StartCoroutine(CoolDownDamage());
                 CurrentHealth += 1;
             }
