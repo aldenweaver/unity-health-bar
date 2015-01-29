@@ -101,7 +101,7 @@ public class PlayerScript : MonoBehaviour
     void OnTriggerStay(Collider other) {
         Debug.Log("Collided");
         if (other.gameObject.tag == "Damage") {
-            if(currentHealth >= 1) {
+            if(!onCoolDown && currentHealth >= 1) {
                 StartCoroutine(CoolDownDamage());
                 CurrentHealth -= 1;
                 Debug.Log("Damage");
@@ -109,7 +109,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         if (other.gameObject.tag == "Health") {
-            if(currentHealth < maxHealth) {
+			if(!onCoolDown && currentHealth < maxHealth) {
                 StartCoroutine(CoolDownDamage());
                 CurrentHealth += 1;
                 Debug.Log("Health");
