@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour
     private float minXValue;
 
     private int currentHealth;
+    private float currentXValue;
 
     private int CurrentHealth {
         get {return currentHealth;}
@@ -33,19 +34,19 @@ public class PlayerScript : MonoBehaviour
     public float coolDown;
     private bool onCoolDown;
 
-
+    private float distToGround;
+    
 
     // Use this for initialization
     void Start()
     {   
+        onCoolDown = false;
+
         yPos = healthTransform.position.y;
         maxXValue = healthTransform.position.x;
         minXValue = healthTransform.position.x - healthTransform.rect.width;
 
         currentHealth = maxHealth;
-
-        onCoolDown = false;
-
     }
 
     // Update is called once per frame
@@ -53,16 +54,18 @@ public class PlayerScript : MonoBehaviour
     {   
         HandleMovement();
 
+        distToGround = collider.bounds.extents.y;
+
         // Hide if invisible is enabled after start but we want it to be disabled 
         // so the health bar will be able to grow
-        if(healthTransform.GetComponent<CanvasRenderer>().hideIfInvisible == true) {
-            healthTransform.GetComponent<CanvasRenderer>().hideIfInvisible = false;
-        }
+//		if(healthTransform.GetComponent<CanvasRenderer>().hideIfInvisible = true) {
+//            healthTransform.GetComponent<CanvasRenderer>().hideIfInvisible = false;
+//        }
     }
 
     private void HandleHealth() {
         healthText.text = "Health: " + currentHealth;
-        float currentXValue = MapValues(currentHealth, 0, maxHealth, minXValue, maxXValue);
+        currentXValue = MapValues(currentHealth, 0, maxHealth, minXValue, maxXValue);
 
         // Transform health bar into correct osition
         healthTransform.position = new Vector3(currentXValue, yPos); 
@@ -82,7 +85,6 @@ public class PlayerScript : MonoBehaviour
         onCoolDown = true;
         yield return new WaitForSeconds(coolDown);
         onCoolDown = false;
-
     }
 
     // Handles the player's movement
@@ -97,26 +99,30 @@ public class PlayerScript : MonoBehaviour
     }
 
     void OnTriggerStay(Collider other) {
-        if (other.name == "Damage") {
-            if(!onCoolDown && currentHealth > 0) {
+        Debug.Log("Collided");
+        if (other.gameObject.tag == "Damage") {
+            if(currentHealth >= 1) {
                 StartCoroutine(CoolDownDamage());
                 CurrentHealth -= 1;
+                Debug.Log("Damage");
             }
         }
 
-        if (other.name == "Health") {
-            if(!onCoolDown && currentHealth > maxHealth) {
+        if (other.gameObject.tag == "Health") {
+            if(currentHealth < maxHealth) {
                 StartCoroutine(CoolDownDamage());
                 CurrentHealth += 1;
+                Debug.Log("Health");
             }
         }
+        Debug.Log("Done colliding");
     }
 
 
     // health   0   50  100
     // posX     -10 -5  0
     private float MapValues(float x, float inMin, float inMax, float outMin, float outMax) {
-        return ((x -inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+        return ((x - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
 
     }
 
