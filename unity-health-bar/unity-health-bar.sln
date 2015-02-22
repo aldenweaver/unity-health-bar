@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{C37A70A1-1CCE-8D5D-2682-333432FABBB2}") = "unity-health-bar", "Assembly-CSharp.csproj", "{F1FAD231-25DF-134F-6E15-0025795A8214}"
 EndProject
-Project("{C37A70A1-1CCE-8D5D-2682-333432FABBB2}") = "unity-health-bar", "Assembly-UnityScript-firstpass.unityproj", "{34ED86AE-05DF-7933-ED3A-52303DCC46BF}"
+Project("{C37A70A1-1CCE-8D5D-2682-333432FABBB2}") = "unity-health-bar", "Assembly-UnityScript.unityproj", "{D295D668-F052-1C36-CB3E-0E18D281D31A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,15 +15,15 @@ Global
 		{F1FAD231-25DF-134F-6E15-0025795A8214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1FAD231-25DF-134F-6E15-0025795A8214}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1FAD231-25DF-134F-6E15-0025795A8214}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34ED86AE-05DF-7933-ED3A-52303DCC46BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34ED86AE-05DF-7933-ED3A-52303DCC46BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34ED86AE-05DF-7933-ED3A-52303DCC46BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34ED86AE-05DF-7933-ED3A-52303DCC46BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D295D668-F052-1C36-CB3E-0E18D281D31A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D295D668-F052-1C36-CB3E-0E18D281D31A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D295D668-F052-1C36-CB3E-0E18D281D31A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D295D668-F052-1C36-CB3E-0E18D281D31A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																		GlobalSection(MonoDevelopProperties) = preSolution
+																							GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
